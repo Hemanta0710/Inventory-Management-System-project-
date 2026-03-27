@@ -1,0 +1,360 @@
+{
+  "info": {
+    "name": "Inventory Management System API",
+    "description": "Postman collection for IMS backend and frontend auth routes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Ping",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/health/ping",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "health", "ping"]
+            }
+          }
+        },
+        {
+          "name": "Actuator Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/actuator/health",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["actuator", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/products",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"RICE-5KG-001\",\n  \"name\": \"Rice Bag 5kg\",\n  \"quantity\": 120,\n  \"reorderLevel\": 30,\n  \"unitPrice\": 450.00,\n  \"imageUrl\": \"https://images.unsplash.com/photo-1586201375761-83865001e31c\"\n}"
+            },
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/products",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sku\": \"{{productSku}}\",\n  \"name\": \"{{productName}}\",\n  \"quantity\": 140,\n  \"reorderLevel\": 35,\n  \"unitPrice\": 470.00,\n  \"imageUrl\": \"https://images.unsplash.com/photo-1586201375761-83865001e31c\"\n}"
+            },
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/products/{{productId}}",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/products/{{productId}}",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Alerts",
+      "item": [
+        {
+          "name": "Low Stock Alerts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/alerts/low-stock?limit=10",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "alerts", "low-stock"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cart",
+      "item": [
+        {
+          "name": "Create Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeName\": \"Employee 1\"\n}"
+            },
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/carts",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "carts"]
+            }
+          }
+        },
+        {
+          "name": "Get Cart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/carts/{{cartId}}",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "carts", "{{cartId}}"]
+            }
+          }
+        },
+        {
+          "name": "Add Cart Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": {{productId}},\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/carts/{{cartId}}/items",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "carts", "{{cartId}}", "items"]
+            }
+          }
+        },
+        {
+          "name": "Reserve Cart",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/carts/{{cartId}}/reserve",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "carts", "{{cartId}}", "reserve"]
+            }
+          }
+        },
+        {
+          "name": "Checkout Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentMethod\": \"CASH\",\n  \"amountTendered\": 2000\n}"
+            },
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/carts/{{cartId}}/checkout",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "carts", "{{cartId}}", "checkout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Sales By Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/analytics/sales-by-product?limit=8",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "analytics", "sales-by-product"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "8"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sales Report Daily",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/analytics/sales-report?period=daily",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "analytics", "sales-report"],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "daily"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sales Report Weekly",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/analytics/sales-report?period=weekly",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "analytics", "sales-report"],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "weekly"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sales Report Monthly",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{backendBaseUrl}}/api/analytics/sales-report?period=monthly",
+              "host": ["{{backendBaseUrl}}"],
+              "path": ["api", "analytics", "sales-report"],
+              "query": [
+                {
+                  "key": "period",
+                  "value": "monthly"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Frontend Auth (Optional)",
+      "item": [
+        {
+          "name": "Login as Manager",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{managerUser}}\",\n  \"password\": \"{{managerPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{frontendBaseUrl}}/api/auth/login",
+              "host": ["{{frontendBaseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login as Employee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{employeeUser}}\",\n  \"password\": \"{{employeePassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{frontendBaseUrl}}/api/auth/login",
+              "host": ["{{frontendBaseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{frontendBaseUrl}}/api/auth/logout",
+              "host": ["{{frontendBaseUrl}}"],
+              "path": ["api", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
